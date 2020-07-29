@@ -1,3 +1,3 @@
-export const selectionSort = array => {
-    return "foo";
-}
+export const selectionSort = (array) => {
+  return "foo";
+};
