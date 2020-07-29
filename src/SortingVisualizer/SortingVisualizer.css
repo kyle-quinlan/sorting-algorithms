@@ -1,0 +1,9 @@
+.array-bar {
+    background-color: red;
+    width: 5px;
+}
+
+.array-container {
+    display: flex;
+    flex-direction: row;
+}
