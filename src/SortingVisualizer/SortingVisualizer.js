@@ -2,6 +2,8 @@ import React from 'react'
 
 import './SortingVisualizer.css';
 
+import * as selectionSort from  '../Algorithms/selectionSort';
+
 class SortingVisualizer extends React.Component {
     constructor(props) {
         super(props);
@@ -24,20 +26,30 @@ class SortingVisualizer extends React.Component {
         this.setState({array});
     }
 
+    selectionSort() {
+        console.log(selectionSort.selectionSort(this.state.array));
+    }
+
     render() {
         const {array} = this.state
 
         return(
-            <div className="array-container">
-                {array.map((value, index) => (
-                    <div 
-                        className="array-bar"
-                        style={{height: `${value}px`}}
-                        key={index}
-                    >
-                    </div>
-                )
-                )}
+            <div>
+                <div className="array-container">
+                    {array.map((value, index) => (
+                        <div 
+                            className="array-bar"
+                            style={{height: `${value}px`}}
+                            key={index}
+                        >
+                        </div>
+                    )
+                    )}
+                </div>
+                <div className="buttons">
+                    <button onClick={() => this.resetArray()}>Make a New Array</button>
+                    <button onClick={() => this.selectionSort()}>Selection Sort Me!</button>
+                </div>
             </div>
         );
     };
