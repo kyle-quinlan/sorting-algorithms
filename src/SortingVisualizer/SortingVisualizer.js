@@ -20,14 +20,47 @@ class SortingVisualizer extends React.Component {
   // resetArrayFunction from original repo: https://github.com/clementmihailescu/Sorting-Visualizer
   resetArray() {
     const array = [];
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 100; i++) {
       array.push(ramdomIntFromInterval(5, 500));
     }
     this.setState({ array });
   }
 
   selectionSort() {
-    console.log(selectionSort.selectionSort(this.state.array));
+    const animations = selectionSort.selectionSort(this.state.array);
+
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName("array-bar");
+      const [bar1Index, bar2Index] = animations[i];
+      const bar1Style = arrayBars[bar1Index].style;
+      const bar2Style = arrayBars[bar2Index].style;
+      if (animations[i][2] !== "s") {
+        const color = animations[i][2] === "ci" ? "blue" : "red";
+        setTimeout(() => {
+          bar1Style.backgroundColor = color;
+          bar2Style.backgroundColor = color;
+        }, i * 2);
+      } else {
+        setTimeout(() => {
+          const temp = bar2Style.height;
+          bar2Style.height = bar1Style.height;
+          bar1Style.height = temp;
+        }, i * 2);
+      }
+    }
+    // for (var i = 0; i < animations.length; i++) {
+    //   const { compare, swap } = animations[i];
+    //   setTimeout(() => {
+    //     const arrayBars = document.getElementsByClassName("array-bar");
+    //     arrayBars[compare[0]].style.backgroundColor = "blue";
+    //     arrayBars[compare[1]].style.backgroundColor = "blue";
+    //     setTimeout(() => {
+    //       arrayBars[compare[0]].style.backgroundColor = "red";
+    //       arrayBars[compare[1]].style.backgroundColor = "red";
+    //     }, (i + 1) * 10);
+    //   }, i * 10);
+    // }
+    //this.setState({ newArray });
   }
 
   render() {

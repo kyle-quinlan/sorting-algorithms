@@ -1,6 +1,7 @@
 .array-bar {
   background-color: red;
-  width: 5px;
+  width: 20px;
+  margin: 1px;
 }
 
 .array-container {

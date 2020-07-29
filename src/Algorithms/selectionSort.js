@@ -1,18 +1,31 @@
 export const selectionSort = (array) => {
-  const arrayLength = array.length;
+  const N = array.length;
   const arr = array;
 
-  for (var i = 0; i < arrayLength - 1; i++) {
+  const animations = [];
+
+  for (var i = 0; i < N; i++) {
+    //const animation = {};
+    var min = arr[i];
     var min_index = i;
-    for (var j = i + 1; j < arrayLength; j++) {
-      if (arr[j] < arr[min_index]) {
+    for (var j = i + 1; j < N; j++) {
+      animations.push([min_index, j, "ci"]);
+      animations.push([min_index, j, "co"]);
+      if (arr[j] < min) {
         min_index = j;
+        min = arr[j];
       }
     }
-    var temp = arr[min_index];
+
     arr[min_index] = arr[i];
-    arr[i] = temp;
+    arr[i] = min;
+    // console.log(
+    //   `Swapping min_index ${min_index} value: ${arr[min_index]} with i index ${i} value ${arr[i]}`
+    // );
+    animations.push([min_index, i, "s"]);
   }
 
-  return arr;
+  //console.log(arr);
+  //console.log(animations);
+  return animations;
 };
