@@ -4,6 +4,7 @@ import "./SortingVisualizer.css";
 
 import * as selectionSort from "../Algorithms/selectionSort";
 import * as bubbleSort from "../Algorithms/bubbleSort";
+import * as insertionSort from "../Algorithms/insertionSort";
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -59,6 +60,11 @@ class SortingVisualizer extends React.Component {
     this.animate(animations);
   }
 
+  insertionSort() {
+    const animations = insertionSort.insertionSort(this.state.array);
+    this.animate(animations);
+  }
+
   render() {
     const { array } = this.state;
 
@@ -79,6 +85,9 @@ class SortingVisualizer extends React.Component {
             Selection Sort Me!
           </button>
           <button onClick={() => this.bubbleSort()}>Bubble Sort Me!</button>
+          <button onClick={() => this.insertionSort()}>
+            Insertion Sort Me!
+          </button>
         </div>
       </div>
     );
@@ -86,7 +95,7 @@ class SortingVisualizer extends React.Component {
 }
 
 // resetArrayFunction from original repo: https://github.com/clementmihailescu/Sorting-Visualizer
-// even though this was taken off of StackOverflow in video
+// even though this was taken off of StackOverflow in his video... so double citations???
 function ramdomIntFromInterval(max, min) {
   // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);
