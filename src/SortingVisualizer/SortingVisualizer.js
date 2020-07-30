@@ -3,6 +3,7 @@ import React from "react";
 import "./SortingVisualizer.css";
 
 import * as selectionSort from "../Algorithms/selectionSort";
+import * as bubbleSort from "../Algorithms/bubbleSort";
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -26,9 +27,7 @@ class SortingVisualizer extends React.Component {
     this.setState({ array });
   }
 
-  selectionSort() {
-    const animations = selectionSort.selectionSort(this.state.array);
-
+  animate = (animations) => {
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
       const [bar1Index, bar2Index] = animations[i];
@@ -39,28 +38,25 @@ class SortingVisualizer extends React.Component {
         setTimeout(() => {
           bar1Style.backgroundColor = color;
           bar2Style.backgroundColor = color;
-        }, i * 2);
+        }, i * 5);
       } else {
         setTimeout(() => {
           const temp = bar2Style.height;
           bar2Style.height = bar1Style.height;
           bar1Style.height = temp;
-        }, i * 2);
+        }, i * 5);
       }
     }
-    // for (var i = 0; i < animations.length; i++) {
-    //   const { compare, swap } = animations[i];
-    //   setTimeout(() => {
-    //     const arrayBars = document.getElementsByClassName("array-bar");
-    //     arrayBars[compare[0]].style.backgroundColor = "blue";
-    //     arrayBars[compare[1]].style.backgroundColor = "blue";
-    //     setTimeout(() => {
-    //       arrayBars[compare[0]].style.backgroundColor = "red";
-    //       arrayBars[compare[1]].style.backgroundColor = "red";
-    //     }, (i + 1) * 10);
-    //   }, i * 10);
-    // }
-    //this.setState({ newArray });
+  };
+
+  selectionSort() {
+    const animations = selectionSort.selectionSort(this.state.array);
+    this.animate(animations);
+  }
+
+  bubbleSort() {
+    const animations = bubbleSort.bubbleSort(this.state.array);
+    this.animate(animations);
   }
 
   render() {
@@ -82,6 +78,7 @@ class SortingVisualizer extends React.Component {
           <button onClick={() => this.selectionSort()}>
             Selection Sort Me!
           </button>
+          <button onClick={() => this.bubbleSort()}>Bubble Sort Me!</button>
         </div>
       </div>
     );
