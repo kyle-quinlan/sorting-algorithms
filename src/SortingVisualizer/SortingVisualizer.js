@@ -5,6 +5,7 @@ import "./SortingVisualizer.css";
 import * as selectionSort from "../Algorithms/selectionSort";
 import * as bubbleSort from "../Algorithms/bubbleSort";
 import * as insertionSort from "../Algorithms/insertionSort";
+import * as mergeSort from "../Algorithms/mergeSort";
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -39,13 +40,13 @@ class SortingVisualizer extends React.Component {
         setTimeout(() => {
           bar1Style.backgroundColor = color;
           bar2Style.backgroundColor = color;
-        }, i * 5);
+        }, i * 2);
       } else {
         setTimeout(() => {
           const temp = bar2Style.height;
           bar2Style.height = bar1Style.height;
           bar1Style.height = temp;
-        }, i * 5);
+        }, i * 2);
       }
     }
   };
@@ -63,6 +64,11 @@ class SortingVisualizer extends React.Component {
   insertionSort() {
     const animations = insertionSort.insertionSort(this.state.array);
     this.animate(animations);
+  }
+
+  mergeSort() {
+    const animations = mergeSort.mergeSort(this.state.array);
+    console.log(animations);
   }
 
   render() {
@@ -88,6 +94,7 @@ class SortingVisualizer extends React.Component {
           <button onClick={() => this.insertionSort()}>
             Insertion Sort Me!
           </button>
+          <button onClick={() => this.mergeSort()}>Merge Sort Me!</button>
         </div>
       </div>
     );
