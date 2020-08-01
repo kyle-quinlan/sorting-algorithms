@@ -1,65 +1,83 @@
-// This file uses an iterative version of merge sort. This is based off of https://www.geeksforgeeks.org/iterative-merge-sort/
+// This file is only slightly modified from original github repo:
+// https://github.com/clementmihailescu/Sorting-Visualizer-Tutorial/blob/master/src/sortingAlgorithms/sortingAlgorithms.js
+
 export const mergeSort = (array) => {
   const n = array.length;
 
-  for (
-    let currentSize = 1;
-    currentSize <= n - 1;
-    currentSize = currentSize * 2
-  ) {
-    for (
-      let leftStart = 0;
-      leftStart < n - 1;
-      leftStart = leftStart + currentSize * 2
-    ) {
-      const mid = Math.min(leftStart + currentSize - 1, n - 1);
-      const rightEnd = Math.min(leftStart + currentSize * 2 - 1, n - 1);
+  const fakeArray = array.slice();
 
-      merge(array, leftStart, mid, rightEnd);
-    }
-  }
+  const animations = [];
 
-  return array;
+  sort(array, 0, n - 1, fakeArray, animations);
+
+  return animations;
 };
 
-const merge = (array, left, mid, right) => {
-  const n1 = mid - left + 1;
-  const n2 = right - mid;
+const sort = (array, start, end, fakeArray, animations) => {
+  if (start === end) return;
+  const middle = Math.floor((start + end) / 2);
+  sort(fakeArray, start, middle, array, animations);
+  sort(fakeArray, middle + 1, end, array, animations);
+  merge(array, start, middle, end, animations, fakeArray);
+};
 
-  const larray = [];
-  const rarray = [];
+const merge = (array, left, mid, right, animations, fakeArray) => {
+  // const n1 = mid - left + 1;
+  // const n2 = right - mid;
 
-  for (let i = 0; i < n1; i++) {
-    larray[i] = array[left + i];
-  }
-  for (let j = 0; j < n2; j++) {
-    rarray[j] = array[mid + 1 + j];
-  }
+  // const larray = [];
+  // const rarray = [];
 
-  let i = 0;
-  let j = 0;
+  // for (let i = 0; i < n1; i++) {
+  //   larray[i] = array[left + i];
+  // }
+  // for (let j = 0; j < n2; j++) {
+  //   rarray[j] = array[mid + 1 + j];
+  // }
+
+  let i = left;
+  let j = mid + 1;
   let k = left;
 
-  while (i < n1 && j < n2) {
-    if (larray[i] <= rarray[j]) {
-      array[k] = larray[i];
-      i++;
+  while (i < mid && j <= right) {
+    animations.push([i, j, "ci"]);
+    animations.push([i, j, "co"]);
+
+    if (fakeArray[i] <= fakeArray[j]) {
+      animations.push([k, fakeArray[i], "s"]);
+      array[k++] = fakeArray[i++];
     } else {
-      array[k] = rarray[j];
-      j++;
+      animations.push([k, fakeArray[j]]);
+      array[k++] = fakeArray[j++];
     }
-    k++;
   }
 
-  while (i < n1) {
-    array[k] = larray[i];
-    i++;
-    k++;
-  }
+  // while (i < n1 && j < n2) {
+  //   if (fakeArray[i] <= fakeArray[j]) {
+  //     animations.push([i, j, "ci"]);
+  //     animations.push([i, j, "co"]);
+  //     array[k] = larray[i];
+  //     i++;
+  //   } else {
+  //     animations.push([i, j, "ci"]);
+  //     animations.push([i, j, "co"]);
+  //     array[k] = rarray[j];
+  //     j++;
+  //   }
+  //   k++;
+  // }
 
-  while (j < n2) {
-    array[k] = rarray[j];
-    j++;
-    k++;
-  }
+  // while (i < n1) {
+  //   //animations.push([k, i, "s"]);
+  //   array[k] = larray[i];
+  //   i++;
+  //   k++;
+  // }
+
+  // while (j < n2) {
+  //   //animations.push([k, i, "s"]);
+  //   array[k] = rarray[j];
+  //   j++;
+  //   k++;
+  // }
 };

@@ -40,7 +40,7 @@ class SortingVisualizer extends React.Component {
         setTimeout(() => {
           bar1Style.backgroundColor = color;
           bar2Style.backgroundColor = color;
-        }, i * 2);
+        }, i * 10);
       } else {
         setTimeout(() => {
           const temp = bar2Style.height;
@@ -68,7 +68,7 @@ class SortingVisualizer extends React.Component {
 
   mergeSort() {
     const animations = mergeSort.mergeSort(this.state.array);
-    console.log(animations);
+    this.animate(animations);
   }
 
   render() {
