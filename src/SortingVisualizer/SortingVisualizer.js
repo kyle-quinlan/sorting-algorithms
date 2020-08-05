@@ -32,20 +32,29 @@ class SortingVisualizer extends React.Component {
   animate = (animations) => {
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
-      const [bar1Index, bar2Index] = animations[i];
-      const bar1Style = arrayBars[bar1Index].style;
-      const bar2Style = arrayBars[bar2Index].style;
-      if (animations[i][2] !== "s") {
+      if (animations[i][2] === "ci" || animations[i][2] === "co") {
+        const [bar1Index, bar2Index] = animations[i];
+        const bar1Style = arrayBars[bar1Index].style;
+        const bar2Style = arrayBars[bar2Index].style;
         const color = animations[i][2] === "ci" ? "blue" : "red";
         setTimeout(() => {
           bar1Style.backgroundColor = color;
           bar2Style.backgroundColor = color;
-        }, i * 10);
-      } else {
+        }, i * 2);
+      } else if (animations[i][2] === "s") {
         setTimeout(() => {
+          const [bar1Index, bar2Index] = animations[i];
+          const bar1Style = arrayBars[bar1Index].style;
+          const bar2Style = arrayBars[bar2Index].style;
           const temp = bar2Style.height;
           bar2Style.height = bar1Style.height;
           bar1Style.height = temp;
+        }, i * 2);
+      } else {
+        setTimeout(() => {
+          const [bar1Index, newHeight] = animations[i];
+          const bar1Style = arrayBars[bar1Index].style;
+          bar1Style.height = `${newHeight}px`;
         }, i * 2);
       }
     }

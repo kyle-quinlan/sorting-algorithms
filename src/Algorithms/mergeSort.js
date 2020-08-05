@@ -44,12 +44,26 @@ const merge = (array, left, mid, right, animations, fakeArray) => {
     animations.push([i, j, "co"]);
 
     if (fakeArray[i] <= fakeArray[j]) {
-      animations.push([k, fakeArray[i], "s"]);
+      animations.push([k, fakeArray[i], "sh"]);
       array[k++] = fakeArray[i++];
     } else {
-      animations.push([k, fakeArray[j]]);
+      animations.push([k, fakeArray[j], "sh"]);
       array[k++] = fakeArray[j++];
     }
+  }
+
+  while (i <= mid) {
+    animations.push([i, i, "ci"]);
+    animations.push([i, i, "co"]);
+    animations.push([k, fakeArray[i], "sh"]);
+    array[k++] = fakeArray[i++];
+  }
+
+  while (j <= right) {
+    animations.push([j, j, "ci"]);
+    animations.push([j, j, "co"]);
+    animations.push([k, fakeArray[j], "sh"]);
+    array[k++] = fakeArray[j++];
   }
 
   // while (i < n1 && j < n2) {
