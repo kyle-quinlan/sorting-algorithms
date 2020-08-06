@@ -39,7 +39,7 @@ const merge = (array, left, mid, right, animations, fakeArray) => {
   let j = mid + 1;
   let k = left;
 
-  while (i < mid && j <= right) {
+  while (i <= mid && j <= right) {
     animations.push([i, j, "ci"]);
     animations.push([i, j, "co"]);
 
