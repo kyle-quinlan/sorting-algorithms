@@ -15,7 +15,7 @@ class SortingVisualizer extends React.Component {
 
     this.state = {
       array: [],
-      whichSort: "bubble",
+      whichSort: "",
     };
   }
 
@@ -95,22 +95,22 @@ class SortingVisualizer extends React.Component {
     const sortingOptions = [
       {
         key: "selection",
-        value: () => this.setState({ whichSort: "selection" }),
+        value: "selection",
         text: "Selection Sort",
       },
       {
         key: "bubble",
-        value: () => this.setState({ whichSort: "bubble" }),
+        value: "bubble",
         text: "Bubble Sort",
       },
       {
         key: "insertion",
-        value: () => this.setState({ whichSort: "insertion" }),
+        value: "insertion",
         text: "Insertion Sort",
       },
       {
         key: "merge",
-        value: () => this.setState({ whichSort: "merge" }),
+        value: "merge",
         text: "Merge Sort",
       },
     ];
@@ -132,6 +132,7 @@ class SortingVisualizer extends React.Component {
               placeholder="Choose Algorithm"
               selection
               options={sortingOptions}
+              onChange={(e, data) => this.setState({ whichSort: data.value })}
             />
           </div>
           <div className="buttons">
