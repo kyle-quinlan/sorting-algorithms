@@ -7,6 +7,8 @@ import * as bubbleSort from "../Algorithms/bubbleSort";
 import * as insertionSort from "../Algorithms/insertionSort";
 import * as mergeSort from "../Algorithms/mergeSort";
 
+import { Dropdown } from "semantic-ui-react";
+
 class SortingVisualizer extends React.Component {
   constructor(props) {
     super(props);
@@ -87,28 +89,31 @@ class SortingVisualizer extends React.Component {
     this.animate(animations);
   }
 
-  selectionSort() {
-    const animations = selectionSort.selectionSort(this.state.array);
-    this.animate(animations);
-  }
-
-  bubbleSort() {
-    const animations = bubbleSort.bubbleSort(this.state.array);
-    this.animate(animations);
-  }
-
-  insertionSort() {
-    const animations = insertionSort.insertionSort(this.state.array);
-    this.animate(animations);
-  }
-
-  mergeSort() {
-    const animations = mergeSort.mergeSort(this.state.array);
-    this.animate(animations);
-  }
-
   render() {
     const { array } = this.state;
+
+    const sortingOptions = [
+      {
+        key: "selection",
+        value: () => this.setState({ whichSort: "selection" }),
+        text: "Selection Sort",
+      },
+      {
+        key: "bubble",
+        value: () => this.setState({ whichSort: "bubble" }),
+        text: "Bubble Sort",
+      },
+      {
+        key: "insertion",
+        value: () => this.setState({ whichSort: "insertion" }),
+        text: "Insertion Sort",
+      },
+      {
+        key: "merge",
+        value: () => this.setState({ whichSort: "merge" }),
+        text: "Merge Sort",
+      },
+    ];
 
     return (
       <div>
@@ -121,38 +126,22 @@ class SortingVisualizer extends React.Component {
             ></div>
           ))}
         </div>
-        <div className="buttons">
-          <button className="ui button" onClick={() => this.resetArray()}>
-            Make a New Array
-          </button>
-          <button
-            className="ui button"
-            onClick={() => this.setState({ whichSort: "selection" })}
-          >
-            Selection Sort Me!
-          </button>
-          <button
-            className="ui button"
-            // prettier-ignore
-            onClick={() => this.setState({whichSort: "bubble"})}
-          >
-            Bubble Sort Me!
-          </button>
-          <button
-            className="ui button"
-            onClick={() => this.setState({ whichSort: "insertion" })}
-          >
-            Insertion Sort Me!
-          </button>
-          <button
-            className="ui button"
-            onClick={() => this.setState({ whichSort: "merge" })}
-          >
-            Merge Sort Me!
-          </button>
-          <button className="ui button" onClick={() => this.sort()}>
-            Sort
-          </button>
+        <div className="inputContainer">
+          <div>
+            <Dropdown
+              placeholder="Choose Algorithm"
+              selection
+              options={sortingOptions}
+            />
+          </div>
+          <div className="buttons">
+            <button className="ui button" onClick={() => this.resetArray()}>
+              Make a New Array
+            </button>
+            <button className="ui button" onClick={() => this.sort()}>
+              Sort
+            </button>
+          </div>
         </div>
       </div>
     );
