@@ -84,7 +84,7 @@ class SortingVisualizer extends React.Component {
         animations = mergeSort.mergeSort(this.state.array);
         break;
       default:
-        console.log("error");
+        console.log("debug no item selected");
         break;
     }
     this.animate(animations);
