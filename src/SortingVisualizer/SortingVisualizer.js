@@ -13,6 +13,7 @@ class SortingVisualizer extends React.Component {
 
     this.state = {
       array: [],
+      whichSort: "bubble",
     };
   }
 
@@ -26,7 +27,7 @@ class SortingVisualizer extends React.Component {
     for (let i = 0; i < 100; i++) {
       array.push(ramdomIntFromInterval(5, 500));
     }
-    this.setState({ array });
+    this.setState({ array: array });
   }
 
   animate = (animations) => {
@@ -59,6 +60,32 @@ class SortingVisualizer extends React.Component {
       }
     }
   };
+
+  sort() {
+    let animations = [];
+    switch (this.state.whichSort) {
+      case "selection":
+        console.log("selection sort");
+        animations = selectionSort.selectionSort(this.state.array);
+        break;
+      case "bubble":
+        console.log("bubble sort");
+        animations = bubbleSort.bubbleSort(this.state.array);
+        break;
+      case "insertion":
+        console.log("insertion sort");
+        animations = insertionSort.insertionSort(this.state.array);
+        break;
+      case "merge":
+        console.log("merge sort");
+        animations = mergeSort.mergeSort(this.state.array);
+        break;
+      default:
+        console.log("error");
+        break;
+    }
+    this.animate(animations);
+  }
 
   selectionSort() {
     const animations = selectionSort.selectionSort(this.state.array);
@@ -95,15 +122,37 @@ class SortingVisualizer extends React.Component {
           ))}
         </div>
         <div className="buttons">
-          <button onClick={() => this.resetArray()}>Make a New Array</button>
-          <button onClick={() => this.selectionSort()}>
+          <button className="ui button" onClick={() => this.resetArray()}>
+            Make a New Array
+          </button>
+          <button
+            className="ui button"
+            onClick={() => this.setState({ whichSort: "selection" })}
+          >
             Selection Sort Me!
           </button>
-          <button onClick={() => this.bubbleSort()}>Bubble Sort Me!</button>
-          <button onClick={() => this.insertionSort()}>
+          <button
+            className="ui button"
+            // prettier-ignore
+            onClick={() => this.setState({whichSort: "bubble"})}
+          >
+            Bubble Sort Me!
+          </button>
+          <button
+            className="ui button"
+            onClick={() => this.setState({ whichSort: "insertion" })}
+          >
             Insertion Sort Me!
           </button>
-          <button onClick={() => this.mergeSort()}>Merge Sort Me!</button>
+          <button
+            className="ui button"
+            onClick={() => this.setState({ whichSort: "merge" })}
+          >
+            Merge Sort Me!
+          </button>
+          <button className="ui button" onClick={() => this.sort()}>
+            Sort
+          </button>
         </div>
       </div>
     );
