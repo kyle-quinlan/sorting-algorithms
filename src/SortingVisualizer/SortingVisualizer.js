@@ -16,6 +16,7 @@ class SortingVisualizer extends React.Component {
     this.state = {
       array: [],
       whichSort: "",
+      buttonsOn: true,
     };
   }
 
@@ -117,6 +118,16 @@ class SortingVisualizer extends React.Component {
 
     return (
       <div>
+        <h1 className="ui header">
+          Sorting Algorithm Visualizer{" "}
+          <div class="sub header">
+            {/* prettier-ignore */}
+            Created By Kyle Quinlan | Code:{" "}
+            <a href="https://github.com/kyle-quinlan/sorting-algorithms">
+              github.com/kyle-quinlan/sorting-algorithms
+            </a>
+          </div>
+        </h1>
         <div className="array-container">
           {array.map((value, index) => (
             <div
@@ -136,10 +147,20 @@ class SortingVisualizer extends React.Component {
             />
           </div>
           <div className="buttons">
-            <button className="ui button" onClick={() => this.resetArray()}>
+            <button
+              className={`ui button ${
+                this.state.buttonsOn === false ? "disabled" : ""
+              }`}
+              onClick={() => this.resetArray()}
+            >
               Make a New Array
             </button>
-            <button className="ui button" onClick={() => this.sort()}>
+            <button
+              className={`ui button ${
+                this.state.buttonsOn === false ? "disabled" : ""
+              }`}
+              onClick={() => this.sort()}
+            >
               Sort
             </button>
           </div>
